@@ -1,0 +1,14 @@
+services:
+  db:
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=“yes”
+      - MYSQL_USER=nutricionist
+      - MYSQL_PASSWORD=nutricionist
+      - MYSQL_DATABASE=nutricionist
+    container_name: nutri-mysql
+    image: mysql:5.6
+    ports:
+      - 3306:3306
+    volumes:
+      - ../mysql-data:/var/lib/mysql
+version: "2"
