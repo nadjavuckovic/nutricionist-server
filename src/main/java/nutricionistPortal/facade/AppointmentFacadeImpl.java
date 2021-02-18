@@ -1,23 +1,26 @@
 package nutricionistPortal.facade;
 
 import nutricionistPortal.dto.AppointmentDTO;
-import nutricionistPortal.dto.CustomerDTO;
-import org.dozer.DozerBeanMapper;
-import service.AppointmentService;
+import nutricionistPortal.dto.AppointmentListDTO;
+import org.springframework.stereotype.Component;
+import nutricionistPortal.service.AppointmentService;
 
 import javax.annotation.Resource;
-import java.util.List;
+import java.util.Date;
 
+@Component
 public class AppointmentFacadeImpl implements AppointmentFacade {
-
-    @Resource
-    private DozerBeanMapper dozerBeanMapper;
 
     @Resource
     private AppointmentService appointmentService;
 
     @Override
-    public List<AppointmentDTO> getAppointments(CustomerDTO customerDTO) {
-        return (List<AppointmentDTO>) dozerBeanMapper.map(appointmentService.getAppointments(customerDTO), AppointmentDTO.class);
+    public AppointmentListDTO getAppointmentListDTO(Date date) {
+        return appointmentService.getAppointmentListDTO(date);
+    }
+
+    @Override
+    public boolean saveAppointment(AppointmentDTO appointmentDTO) {
+        return appointmentService.saveAppointment(appointmentDTO);
     }
 }

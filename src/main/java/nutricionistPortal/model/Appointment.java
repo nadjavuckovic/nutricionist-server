@@ -21,7 +21,7 @@ public class Appointment {
     private String title;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "email")
     @NotNull
     private Customer customer;
 

@@ -10,8 +10,7 @@ import java.util.List;
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private String email;
 
     @Column
     @NotNull
@@ -35,14 +34,6 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer", orphanRemoval = true, cascade = CascadeType.PERSIST)
     private List<Comment> comments;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -90,5 +81,13 @@ public class Customer {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

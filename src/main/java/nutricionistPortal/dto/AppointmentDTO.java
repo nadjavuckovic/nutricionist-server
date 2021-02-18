@@ -6,7 +6,7 @@ public class AppointmentDTO {
 
     private LocalDateTime date;
     private String title;
-    private CustomerDTO customer;
+//    private CustomerDTO customer;
 
     public LocalDateTime getDate() {
         return date;
@@ -24,11 +24,11 @@ public class AppointmentDTO {
         this.title = title;
     }
 
-    public CustomerDTO getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(CustomerDTO customer) {
-        this.customer = customer;
-    }
+//    public CustomerDTO getCustomer() {
+//        return customer;
+//    }
+//
+//    public void setCustomer(CustomerDTO customer) {
+//        this.customer = customer;
+//    }
 }

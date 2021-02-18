@@ -1,11 +1,13 @@
 package nutricionistPortal.facade;
 
 import nutricionistPortal.dto.AppointmentDTO;
-import nutricionistPortal.dto.CustomerDTO;
+import nutricionistPortal.dto.AppointmentListDTO;
 
-import java.util.List;
+import java.util.Date;
 
 public interface AppointmentFacade {
 
-    List<AppointmentDTO> getAppointments(CustomerDTO customerDTO);
+    AppointmentListDTO getAppointmentListDTO(Date date);
+
+    boolean saveAppointment(AppointmentDTO appointmentDTO);
 }
