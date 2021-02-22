@@ -7,9 +7,7 @@ public class AppointmentDayDTO {
     private int key;
     private List<AppointmentDTO> appointments;
 
-    public AppointmentDayDTO(int key, List<AppointmentDTO> appointments) {
-        this.key = key;
-        this.appointments = appointments;
+    public AppointmentDayDTO() {
     }
 
     public int getKey() {

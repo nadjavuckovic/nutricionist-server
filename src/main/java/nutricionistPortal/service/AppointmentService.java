@@ -1,15 +1,12 @@
 package nutricionistPortal.service;
 
+import com.github.dozermapper.core.Mapper;
 import lombok.AllArgsConstructor;
 import nutricionistPortal.dto.AppointmentDTO;
 import nutricionistPortal.dto.AppointmentDayDTO;
 import nutricionistPortal.dto.AppointmentListDTO;
-import nutricionistPortal.dto.IAppointmentDTO;
 import nutricionistPortal.model.Appointment;
-import nutricionistPortal.model.Customer;
 import nutricionistPortal.repository.AppointmentRepository;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,15 +23,19 @@ public class AppointmentService {
     @Resource
     private AppointmentRepository appointmentRepository;
 
-    private final ModelMapper modelMapper = new ModelMapper();
+    @Resource
+    private Mapper dozerBeanMapper;
 
     public AppointmentListDTO getAppointmentListDTO(Date date) {
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         int month = localDate.getMonthValue();
 
-        //all appointmenDTOs for given month
-        List<IAppointmentDTO> iAppointmentDTOs = appointmentRepository.findAllApointmentsForMonth(month);
-        List<AppointmentDTO> appointmentDTOs = modelMapper.map(iAppointmentDTOs, new TypeToken<List<AppointmentDTO>>() {}.getType());
+        List<Appointment> appointments = appointmentRepository.findAllApointmentsForMonth(month);
+        List<AppointmentDTO> appointmentDTOs = appointments.stream().map(appointment -> {
+            AppointmentDTO appointmentDTO = new AppointmentDTO();
+            dozerBeanMapper.map(appointment, appointmentDTO);
+            return appointmentDTO;
+        }).collect(Collectors.toList());
 
         return populateAppointmentListDTO(appointmentDTOs);
     }
@@ -44,21 +45,26 @@ public class AppointmentService {
                 .stream()
                 .map(a -> {
                     int key = a.getDate().getDayOfMonth();
-                    return new AppointmentDayDTO(key, appointmentDTOs);
+                    AppointmentDayDTO appointmentDayDTO = new AppointmentDayDTO();
+                    appointmentDayDTO.setKey(key);
+                    appointmentDayDTO.setAppointments(appointmentDTOs);
+                    return appointmentDayDTO;
                 })
                 .collect(Collectors.toList());
-        return new AppointmentListDTO(appointments);
+        AppointmentListDTO appointmentListDTO = new AppointmentListDTO();
+        appointmentListDTO.setAppointments(appointments);
+        return appointmentListDTO;
     }
 
     public boolean saveAppointment(AppointmentDTO appointmentDTO) {
-        Appointment appointment = modelMapper.map(appointmentDTO,Appointment.class);
+//        Appointment appointment = modelMapper.map(appointmentDTO,Appointment.class);
 
         //temp cause of DozerMapper
-        Customer customer = new Customer();
-        customer.setEmail("nadjavuckovic@gmail.com");
-        appointment.setCustomer(customer);
-
-        appointmentRepository.save(appointment);
+//        Customer customer = new Customer();
+//        customer.setEmail("nadjavuckovic@gmail.com");
+//        appointment.setCustomer(customer);
+//
+//        appointmentRepository.save(appointment);
         return true;
     }
 }

@@ -6,8 +6,7 @@ public class AppointmentListDTO {
 
     private List<AppointmentDayDTO> appointments;
 
-    public AppointmentListDTO(List<AppointmentDayDTO> appointments) {
-        this.appointments = appointments;
+    public AppointmentListDTO() {
     }
 
     public List<AppointmentDayDTO> getAppointments() {

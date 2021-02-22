@@ -11,4 +11,18 @@ services:
       - 3306:3306
     volumes:
       - ../mysql-data:/var/lib/mysql
+
+  nutri:
+    image: nutri:latest
+    restart: on-failure
+    depends_on:
+      - db
+    ports:
+      - 9002:9002
+    container_name: nutri-app
+    environment:
+      SPRING_DATASOURCE_USERNAME: nutricionist
+      SPRING_DATASOURCE_PASSWORD: nutricionist
+      SPRING_DATASOURCE_URL: jdbc:mysql://nutri-mysql/nutricionist?useSSL=false&allowPublicKeyRetrieval=true
+
 version: "2"

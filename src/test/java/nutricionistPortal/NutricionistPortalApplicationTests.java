@@ -23,12 +23,6 @@ class NutricionistPortalApplicationTests {
 	AppointmentService appointmentService;
 
 	@Test
-	void appoinments() {
-		AppointmentListDTO appointmentListDTO = appointmentService.getAppointmentListDTO(new Date());
-		System.out.println(appointmentListDTO.getAppointments().size());
-	}
-
-	@Test
 	void save() {
 		AppointmentDTO appointmentDTO = new AppointmentDTO();
 		Date date = new Date();

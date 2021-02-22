@@ -3,7 +3,6 @@ package nutricionistPortal.model;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -19,18 +18,6 @@ public class Customer {
     @Column
     @NotNull
     private String surname;
-
-    @Column
-    @NotNull
-    private Date dateOfBirth;
-
-    @Column
-    @NotNull
-    private double height;
-
-    @Column
-    @NotNull
-    private double weight;
 
     @OneToMany(mappedBy = "customer", orphanRemoval = true, cascade = CascadeType.PERSIST)
     private List<Comment> comments;
@@ -49,30 +36,6 @@ public class Customer {
 
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public double getHeight() {
-        return height;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
     }
 
     public List<Comment> getComments() {
