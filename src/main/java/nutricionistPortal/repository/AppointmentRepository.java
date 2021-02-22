@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Integer> {
 
-    @Query(value = "SELECT a FROM Appointment a WHERE MONTH(a.date) = :month")
-    List<Appointment> findAllApointmentsForMonth(int month);
+    @Query(value = "SELECT a FROM Appointment a WHERE MONTH(a.date) = :month AND YEAR(a.date) = :year")
+    List<Appointment> findAllApointmentsForMonth(int month, int year);
 }

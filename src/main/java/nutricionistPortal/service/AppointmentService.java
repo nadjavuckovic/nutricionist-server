@@ -29,8 +29,9 @@ public class AppointmentService {
     public AppointmentListDTO getAppointmentListDTO(Date date) {
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         int month = localDate.getMonthValue();
+        int year = localDate.getYear();
 
-        List<Appointment> appointments = appointmentRepository.findAllApointmentsForMonth(month);
+        List<Appointment> appointments = appointmentRepository.findAllApointmentsForMonth(month, year);
         List<AppointmentDTO> appointmentDTOs = appointments.stream().map(appointment -> {
             AppointmentDTO appointmentDTO = new AppointmentDTO();
             dozerBeanMapper.map(appointment, appointmentDTO);
